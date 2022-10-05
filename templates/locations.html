@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+      <meta charset="UTF-8">
+      <title>All Weather Locations</title>
+      <link href="{{ url_for('static', filename='css/main.css') }}" rel="stylesheet">
+  </head>
+  <body>
+
+<!--  <div class="bkg-img">-->
+
+    <div class="container">
+         <div class="top-pad">
+             <h1>Locations</h1>
+             <p>Click a location to check the weather forecast there</p>
+             {% for item in locations %}
+                  <div class="well">
+                        <h4>
+                            <a href={{ url_for('show_weather', id=locations[item]) }}>{{ item }}</a>
+                        </h4>
+                  </div>
+            {% endfor %}
+          </div>
+    </div>
+
+    <div>
+        <a href="https://www.freepik.com/free-vector/weather-pattern_980612.htm#query=weather%20pattern&position=0&from_view=keyword">Image by 3ab2ou</a> on Freepik
+    </div>
+
+<!--  </div>-->
+
+  </body>
+</html>

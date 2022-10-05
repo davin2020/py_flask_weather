@@ -1,0 +1,93 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+      <meta charset="UTF-8">
+      <title>Weather for Location</title>
+      <link href="{{ url_for('static', filename='css/main.css') }}" rel="stylesheet">
+  </head>
+  <body>
+    <h1>Weather for location {{name}}</h1>
+
+    <div class="container">
+        <div class="top-pad">
+          {% for current_date in weather_time_period %}
+            {% set t1 = starting_date %}
+            {% set the_date = current_date['value'] %}
+            {% set new_date = starting_date %}
+<!--            strftime('%H%M')-->
+<!--            {{ starting_date.strftime("%A %d %b %Y") }}-->
+          <h2>Date {{ current_date['value'] }}</h2>
+
+<!--            <h2>Date  {{ new_date.strftime("%a %d %b %Y") }} </h2>-->
+<!--            date is not bein gincremented as expected -->
+                {% set new_date = new_date.replace(day=new_date.day+1) %}
+
+                <div class="flex-grid grid-header">
+                    <div class="col"><b>Time Period </b></div>
+                    <!--     todo - translate weather type ints to values -->
+                    <div class="col">Weather Type</div>
+                    <div class="col">Wind Gust</div>
+                    <div class="col">Wind Speed</div>
+                    <div class="col">Wind Direction</div>
+                    <div class="col">Temp</div>
+                    <div class="col">Feels Like</div>
+                    <div class="col">Relative Humidity</div>
+                    <div class="col">Visibility</div>
+                    <div class="col">Max UV</div>
+                    <div class="col">Rain</div>
+                </div>
+
+                <!--  Can iterate over nested JSON items, but only using one value, not two values like key-value pairs in dict - or debuggging can do <p> {{ i}} <p> -->
+                {% for i in current_date['Rep'] %}
+                    <div class="flex-grid">
+                    <!--  todo add actual time period  - but u cant do math/calculations in templating file -->
+<!--                        {% set t2 = starting_date.replace(hour=starting_date.hour+3) %}-->
+                        {% set amt = i["$"]|int %}
+                        {% set amt_hr = (amt / 60)|int %}
+<!--    NOW WORKING OK                    amt_hr {{ amt_hr }}-->
+
+                        {% set t3 = starting_date.replace(hour=amt_hr) %}
+<!--                        add 3hrs unless t4 is 2100 then add 2.59?-->
+                        {% set t4 = t3.replace(hour=t3.hour+2) %}
+<!--last hour is 24 not 23  - so add -->
+                        {% set hrs_to_add = t3.hour+3|int %}
+                        {% if hrs_to_add == 24 %}
+                        {%  set hrs_to_add = 00 %}
+                        {% endif %}
+                        {% set t4 = t3.replace(hour=hrs_to_add) %}
+
+                        <!--  this works to format at hours & mins w leading zeros, but still need to fix adding 3 hrs to 2100 and not throwing runtime error!-->
+                        <div class="col"> {{ t3.strftime('%H%M') }} - {{ t4.strftime('%H%M') }}  </div>
+<!--                        <div class="col"> :: {{ i["$"] }} </div>-->
+                        {% set t1 = starting_date.replace(hour=starting_date.hour+3) %}
+                        <div class="col">
+                        <!--   compare values against dict to get meanign of weather types ? BUG this isnt  working - pass in value from json to dict of weather_types - try casting to string or int instead ?? -->
+                            {{ weather_types[i["W"]] }}
+
+                             {% set w_type = i["W"]  | int %}
+                            {{ weather_types[w_type] }}
+<!--                            {{ weather_types[i["W"]] }}-->
+                        </div>
+
+                        <div class="col">{{ i["G"] }}</div>
+                        <div class="col">{{ i["S"] }} </div>
+                        <div class="col">{{ i["D"] }} </div>
+                        <div class="col">{{ i["T"] }} </div>
+                        <div class="col">{{ i["F"] }} </div>
+                        <div class="col">{{ i["H"] }}</div>
+                        <div class="col">
+<!--                            {{ i["V"] }}-->
+<!--                            visibility_types-->
+                            {{ visibility_types[i["V"]] }}
+                        </div>
+                        <div class="col">{{ i["U"] }} </div>
+                        <div class="col">{{ i["Pp"] }} </div>
+                    </div>
+                {% endfor %}
+
+          {% endfor %}
+        </div>
+    </div>
+
+  </body>
+</html>
