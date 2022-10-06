@@ -6,33 +6,21 @@
       <link href="{{ url_for('static', filename='css/main.css') }}" rel="stylesheet">
   </head>
   <body>
-<!--  current_location_forecast-->
-<!--  forecast_list = dict_location_forecast[datetime_str]-->
+
     {% set name = current_location_forecast["name"] %}
     <h1>Weather for location {{name}} Forecasts</h1>
 
     <div class="container">
         <div class="top-pad">
             {% set forecast_dict = current_location_forecast["forecasts"] %}
-<!--            {% set forecast_list = current_location_forecast["forecasts"] %}-->
-
-<!--            {% set curr = forecast_list[current_date] %}-->
 
             {% for key_date in forecast_dict %}
-                <p>{% set days_forecast = forecast_dict[key_date] %}</p>
-
-                {% set t1 = starting_date %}
+                {% set days_forecast = forecast_dict[key_date] %}
                 {% set the_date = current_date['value'] %}
-                {% set new_date = starting_date %}
 
-    <!--       todo     formattthis nicer but cant import date time into jinja and cant use strftime -->
-
+                <!--       todo     formatt date  nicer but cant import date time into jinja and cant use strftime -->
+            <!--            <h2>Date doesnt work now??  {{ new_date.strftime("%a %d %b %Y") }} </h2> -->
                 <h2>Date {{ key_date  }}</h2>
-<!--                <h2>Date {{ formatted_date  }}</h2>-->
-
-    <!--            <h2>Date doesnt work now??  {{ new_date.strftime("%a %d %b %Y") }} </h2>-->
-                    {% set new_date = new_date.replace(day=new_date.day+1) %}
-
                     <div class="flex-grid grid-header">
                         <div class="col"><b>Time</b></div>
                         <div class="col">Weather Type</div>
@@ -40,21 +28,19 @@
                         <div class="col">Rain</div>
                     </div>
 
-                    <!--  Can iterate over nested JSON items, but only using one value, not two values like key-value pairs in dict - or debuggging can do <p> {{ i}} <p> -->
+                <!--  Can iterate over nested JSON items, but only using one value, not two values like key-value pairs in dict - or for debuggging can do `<p> {{ i }} <p>` and output stuff to browser -->
 
-                <!-- eEXTRA LOOPS GO HERE -->
-                <!-- NEW ITERATION - shows time and forecast data -->
-                {% for i in days_forecast %}
+                <!-- shows time intervals and forecast data -->
+                {% for item in days_forecast %}
                      <div class="flex-grid">
-                        <!--  this works to format at hours & mins w leading zeros, but still need to fix adding 3 hrs to 2100 and not throwing runtime error!-->
-                        <div class="col"> {{ i.time.strftime('%H%M') }} </div>
+                        <div class="col"> {{ item.time.strftime('%H%M') }} </div>
+                         <!--   pass in value from json data of int to dict of weather_types to get string result - try  -->
                          <div class="col">
-                        <!--   compare values against dict to get meanign of weather types ? BUG this isnt  working - pass in value from json to dict of weather_types - try casting to string or int instead ?? -->
-                             {% set w_type = i.weather_type  | int %}
+                             {% set w_type = item.weather_type  | int %}
                             {{ weather_types[w_type] }}
                         </div>
-                        <div class="col">{{ i.temp }}</div>
-                        <div class="col">{{ i.rain }}</div>
+                        <div class="col">{{ item.temp }}</div>
+                        <div class="col">{{ item.rain }}</div>
                     </div>
 
                 {% endfor %}

@@ -7,25 +7,26 @@
   </head>
   <body>
 
+<!--  todo add bkg img with half opacity that doesnt make text harder to read-->
 <!--  <div class="bkg-img">-->
 
-    <div class="container">
-         <div class="top-pad">
-             <h1>Locations</h1>
-             <p>Click a location to check the weather forecast there</p>
-             {% for item in locations %}
-                  <div class="well">
-                        <h4>
-                            <a href={{ url_for('show_weather', id=locations[item]) }}>{{ item }}</a>
-                        </h4>
-                  </div>
-            {% endfor %}
-          </div>
-    </div>
+        <div class="container">
+             <div class="top-pad">
+                 <h1>Locations</h1>
+                 <p>Click a location to check the weather forecast there</p>
+                 {% for item in locations %}
+                      <div class="well">
+                            <h4>
+                                <a href={{ url_for('show_weather', id=locations[item]) }}>{{ item }}</a>
+                            </h4>
+                      </div>
+                {% endfor %}
+              </div>
+        </div>
 
-    <div>
-        <a href="https://www.freepik.com/free-vector/weather-pattern_980612.htm#query=weather%20pattern&position=0&from_view=keyword">Image by 3ab2ou</a> on Freepik
-    </div>
+        <div>
+            <a href="https://www.freepik.com/free-vector/weather-pattern_980612.htm#query=weather%20pattern&position=0&from_view=keyword">Image by 3ab2ou</a> on Freepik
+        </div>
 
 <!--  </div>-->
 
