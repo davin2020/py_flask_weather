@@ -12,8 +12,10 @@
 
         <div class="container">
              <div class="top-pad">
-                 <h1>Locations</h1>
+                 <h1>Location Objects</h1>
                  <p>Click a location to check the weather forecast there</p>
+
+                 {#
                  {% for item in locations %}
                       <div class="well">
                             <h4>
@@ -21,6 +23,19 @@
                             </h4>
                       </div>
                 {% endfor %}
+                 #}
+
+<!--                 <h3>new locn objs - lcocation objs in a list</h3>-->
+
+
+                 {% for locn in location_list %}
+<!--                    <p>{{ locn["name"] }} - {{ locn.id }}</p>-->
+                 <div class="well">
+                            <h4>
+                                <a href={{ url_for('show_weather', id=locn.id) }}>{{ locn["name"] }}</a>
+                            </h4>
+                      </div>
+                 {% endfor %}
               </div>
         </div>
 
