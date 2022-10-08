@@ -18,9 +18,12 @@
                 {% set days_forecast = forecast_dict[key_date] %}
                 {% set the_date = current_date['value'] %}
 
-                <!--       todo     formatt date  nicer but cant import date time into jinja and cant use strftime -->
-            <!--            <h2>Date doesnt work now??  {{ new_date.strftime("%a %d %b %Y") }} </h2> -->
+                <!--  todo  formatt date  nicer but cant import date time into jinja and cant use strftime -->
                 <h2>Date {{ key_date  }}</h2>
+                    {# note: syntax for jinja comments
+                    <h2>Date doesnt work now?? {{ new_date.strftime("%a %d %b %Y") }} </h2>
+                    #}
+
                     <div class="flex-grid grid-header">
                         <div class="col"><b>Time</b></div>
                         <div class="col">Weather Type</div>

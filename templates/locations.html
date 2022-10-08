@@ -12,10 +12,10 @@
 
         <div class="container">
              <div class="top-pad">
-                 <h1>Location Objects</h1>
+                 <h1>Location</h1>
                  <p>Click a location to check the weather forecast there</p>
 
-                 {#
+                 {# original location-list stuff, not using classes
                  {% for item in locations %}
                       <div class="well">
                             <h4>
@@ -25,23 +25,22 @@
                 {% endfor %}
                  #}
 
-<!--                 <h3>new locn objs - lcocation objs in a list</h3>-->
-
-
+                 <!--    retrieve list of location objects -->
                  {% for locn in location_list %}
-<!--                    <p>{{ locn["name"] }} - {{ locn.id }}</p>-->
-                 <div class="well">
-                            <h4>
-                                <a href={{ url_for('show_weather', id=locn.id) }}>{{ locn["name"] }}</a>
-                            </h4>
-                      </div>
+                     <div class="well">
+                         <h4>
+                             <a href={{ url_for('show_weather', id=locn.id) }}>{{ locn["name"] }}</a>
+                         </h4>
+                     </div>
                  {% endfor %}
               </div>
         </div>
 
+        <!--    credit for bkg wallpaper
         <div>
             <a href="https://www.freepik.com/free-vector/weather-pattern_980612.htm#query=weather%20pattern&position=0&from_view=keyword">Image by 3ab2ou</a> on Freepik
         </div>
+        -->
 
 <!--  </div>-->
 
